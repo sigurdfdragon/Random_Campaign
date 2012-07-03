@@ -1,0 +1,53 @@
+Random Campaign Change Log
+See http://forums.wesnoth.org/viewtopic.php?f=8&t=32922 for more info.
+
+0.8.3
+	Works with 1.9.9 or greater
+	Khalifate added to the 6 Scenario Campaign
+	Map generators have been exported to Sigurd's Random Maps, which is now
+		a required depenency.
+	Upon completion of Campagin or 1p Multiplayer version, you have the choice
+		to save your army for use in Custom Campaign, even if you don't have it yet.
+	Other minor tweaks and some code cleanup.
+
+0.8.0
+    Works with 1.9.5 & 1.9.6 Wesnoth
+    Added a true multiplayer campaign for up to 3 players. Can be configured
+        same way as the 1 player MP Campaign. If there are OOS errors or other bugs in
+        the 3 player version, please post in the forums
+    Added more random dialogue.
+    Added some story.
+    Removed 3 scenario campaign on the SP Campagin side as it's redundant.
+    Removed 'Random' faction choice on SP Campaign, as there's no good reason to pick it,
+        when you could get stuck with a leader that maxes out at level 2 for the whole campaign.
+    Changed names of SP difficulty back to EASY, NORMAL, HARD; with appropriate gold values.
+    Fog is present on all levels, shroud set to no,yes,yes for difficulty.
+
+0.7.5
+    Only for Wesnoth 1.9.5, as new terrain has been added to the maps (sand drifts & water lilies)
+    Added new random map type, Island.
+    Added a 1 player, 3 scenario campaign under multiplayer, allowing use of most Eras! & configuration of most settings.
+    Various tweaks to most of the random maps.
+    Changed name of time on Citadel from Indoors to Citadel.
+    Added code to insure than no map is repeated during a campaign.
+    
+0.7.0
+    Major map randomness added, 10 types of random maps. See /generators for a list
+    Change of difficulty settings to Clear, Fog, Shroud.
+    Only for Wesnoth 1.9.4 & up, as major use of new terrain & macros is made
+    As there is a lot of variety amongst the maps, the turn limit has been removed
+    Bonus gold (which wasn't being used) was removed
+    Difficulty levels are now Clear, Fog, Shroud.
+    Clear uses the previous Easy gold schedule, Fog & Shroud use the previous Normal gold schedule.
+    Most of the code was cleaned up extensively.
+    The map generators have just about everything in them macro'ed for easy readability
+    Faction data is now read directly from the mainline multiplayer/factions/ files.
+    This makes future updating easier & also makes it easier for knowledgeable users to edit Faction_Data.cfg file in the campagin to load their own factions/eras
+
+
+0.6.0
+    Menu improvements, 3 scenario AOH path added.
+    Also released for the 1.8.5 version of Wesnoth (first & last one).
+
+0.5.0
+    First version, not very good compared to later versions.
