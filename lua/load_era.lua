@@ -101,7 +101,7 @@ end
 	
 function rc.analyze_era(era)
 	-- receives an era table
-	-- determines what type of era it is. (small_fry, default, aoh, eol, or other)
+	-- returns what type of era it is. (small_fry, default, aoh, eol, or other)
 	-- add check to make sure a table/wml table is received
 	local leader_count, level_sum = 0, 0
 	for multiplayer_side in helper.child_range(era, "multiplayer_side") do
@@ -126,7 +126,7 @@ function rc.analyze_era(era)
 		elseif result == 2 then era_type = "default"
 		elseif result == 3 then era_type = "heroes"
 		elseif result == 4 then era_type = "legends"
-		else					era_type = "default"
+		else					era_type = "unknown"
 	end
 	return era_type
 end
@@ -139,8 +139,14 @@ function rc.format_era_data(era)
 	for e = #processed_era, 1, -1 do
 		if processed_era[e][2].recruit == nil or processed_era[e][2].leader == nil then
 			table.remove(processed_era, e)
+		else
+			-- sort recruit, so it can be compared to the recruit string in [store_sides]
+			local t = rc.split(processed_era[e][2].recruit, ",")
+			table.sort(t)
+			processed_era[e][2].recruit = table.concat(t, ",")
 		end
 	end
+	processed_era.era_type = rc.analyze_era(processed_era)
 	return processed_era
 end
 
@@ -185,33 +191,52 @@ end
 -- hardcode for rc_default, era_default & era_khalifate
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
-local era
-local era_default
-local era_heroes
-local era_legends
+local era, e1, e2, e3
+local eras = {}
 
+-- hard coded default type eras
 if wesnoth.game_config.mp_settings.mp_era == "rc_default" then
-	era_default = rc.format_era_data(wesnoth.get_era("rc_default"))
-	era_heroes = rc.format_era_data(wesnoth.get_era("rc_heroes"))
-	era_legends = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+	e1 = rc.format_era_data(wesnoth.get_era("rc_default"))
+	e2 = rc.format_era_data(wesnoth.get_era("rc_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
 elseif wesnoth.game_config.mp_settings.mp_era == "era_default" then
-	era_default = rc.format_era_data(wesnoth.get_era("era_default"))
-	era_heroes = rc.format_era_data(wesnoth.get_era("era_heroes"))
-	era_legends = rc.format_era_data(wesnoth.get_era("era_legends"))
+	e1 = rc.format_era_data(wesnoth.get_era("era_default"))
+	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
 elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate" then
-	era_default = rc.format_era_data(wesnoth.get_era("era_khalifate"))
-	era_heroes = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
-	era_legends = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+	e1 = rc.format_era_data(wesnoth.get_era("era_khalifate"))
+	e2 = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+-- hard coded aoh type eras
+elseif wesnoth.game_config.mp_settings.mp_era == "rc_heroes" then
+	e2 = rc.format_era_data(wesnoth.get_era("rc_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+	e1 = e2
+elseif wesnoth.game_config.mp_settings.mp_era == "era_heroes" then
+	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
+	e1 = e2
+elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate_heroes" then
+	e2 = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+	e1 = e2
+-- make an era table with 3 eras based on selected era
+-- yes, the formatting of eras for selecting an aoh era is hacky,
+-- but this is minimally intrusive for the rest of the add-on.
 else
-	-- run 7 scenario based on era
 	era = rc.format_era_data(wesnoth.game_config.era)
-	--wesnoth.message(wesnoth.debug(era))
-	era.era_type = rc.analyze_era(era)
 	if era.era_type == "default" then
-		era_default = era
-		era_heroes = rc.upgrade_era(era, "heroes")
-		era_legends = rc.upgrade_era(era_heroes, "legends")
+		e1 = era
+		e2 = rc.upgrade_era(e1, "heroes")
+		e3 = rc.upgrade_era(e2, "legends")
+	elseif era.era_type == "heroes" then
+		e1 = era
+		e2 = era
+		e3 = rc.upgrade_era(e1, "legends")
 	end
 end
-helper.set_variable_array("era", { era_default, era_heroes, era_legends })
+table.insert(eras, e1)
+table.insert(eras, e2)
+table.insert(eras, e3)
+helper.set_variable_array("era", eras)
 
