@@ -186,19 +186,20 @@ end
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
 local era
+local era_default
 local era_heroes
 local era_legends
 
 if wesnoth.game_config.mp_settings.mp_era == "rc_default" then
-	era = rc.format_era_data(wesnoth.get_era("rc_default"))
+	era_default = rc.format_era_data(wesnoth.get_era("rc_default"))
 	era_heroes = rc.format_era_data(wesnoth.get_era("rc_heroes"))
 	era_legends = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
 elseif wesnoth.game_config.mp_settings.mp_era == "era_default" then
-	era = rc.format_era_data(wesnoth.get_era("era_default"))
+	era_default = rc.format_era_data(wesnoth.get_era("era_default"))
 	era_heroes = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	era_legends = rc.format_era_data(wesnoth.get_era("era_legends"))
 elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate" then
-	era = rc.format_era_data(wesnoth.get_era("era_khalifate"))
+	era_default = rc.format_era_data(wesnoth.get_era("era_khalifate"))
 	era_heroes = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
 	era_legends = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
 else
@@ -207,12 +208,10 @@ else
 	--wesnoth.message(wesnoth.debug(era))
 	era.era_type = rc.analyze_era(era)
 	if era.era_type == "default" then
+		era_default = era
 		era_heroes = rc.upgrade_era(era, "heroes")
 		era_legends = rc.upgrade_era(era_heroes, "legends")
 	end
---	else
-	--	wml_actions.message({ speaker="narrator", message=_"Random Campaign requires a default type era. (i.e. level 2 units leading level 1/0 units.)" })
-		--rc.endlevel()
 end
-helper.set_variable_array("era", { era, era_heroes, era_legends })
+helper.set_variable_array("era", { era_default, era_heroes, era_legends })
 
