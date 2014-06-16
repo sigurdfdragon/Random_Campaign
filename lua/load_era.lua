@@ -1,4 +1,4 @@
--- scratch lua for random campaign
+-- #textdomain wesnoth-Random_Campaign
 
 local rc = {}
 local helper = wesnoth.require("lua/helper.lua")
