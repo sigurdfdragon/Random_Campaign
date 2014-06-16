@@ -181,12 +181,6 @@ function rc.split(str, delimiter)
     return result
 end
 
-function rc.endlevel()
-	wml_actions.endlevel({ result="defeat", carryover_report="no",
-		carryover_percentage=0, carryover_add="no", bonus="no",
-		linger_mode="no", save="no", replay_save="no" })
-end
-
 -- derive aoh & eol eras from a default type era
 -- hardcode for rc_default, era_default & era_khalifate
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
