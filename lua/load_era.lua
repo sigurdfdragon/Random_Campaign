@@ -239,4 +239,3 @@ table.insert(eras, e1)
 table.insert(eras, e2)
 table.insert(eras, e3)
 helper.set_variable_array("era", eras)
-
