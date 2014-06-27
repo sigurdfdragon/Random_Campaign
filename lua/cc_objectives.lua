@@ -33,4 +33,6 @@ end
 wesnoth.wml_actions.store_turns( { variable="custom_campaign.turn_limit" } )
 objectives[c] = { "objective", { condition="lose", show_turn_counter="yes", description=_"Turns run out",
 	{ "show_if", { { "variable", { name="custom_campaign.turn_limit", not_equals="-1" } } } }   } }
+c = c + 1
+objectives[c] = { "gold_carryover", { bonus=false, carryover_percentage=0 } }
 wesnoth.wml_actions.objectives(objectives)
