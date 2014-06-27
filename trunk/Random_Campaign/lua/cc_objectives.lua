@@ -30,9 +30,16 @@ for u = 1, #units do
 		c = c + 1
 	end
 end
-wesnoth.wml_actions.store_turns( { variable="custom_campaign.turn_limit" } )
-objectives[c] = { "objective", { condition="lose", show_turn_counter="yes", description=_"Turns run out",
-	{ "show_if", { { "variable", { name="custom_campaign.turn_limit", not_equals="-1" } } } }   } }
-c = c + 1
-objectives[c] = { "gold_carryover", { bonus=false, carryover_percentage=0 } }
+local level = wesnoth.get_variable("level")
+if level == 7 then
+    objectives[c] = { "note", { red=0, blue=255, green=255,
+		description="<b>" .. _"This is the last scenario." .. "</b>" } }
+else
+	local turns = wesnoth.get_variable("random_campaign.turn_limit")
+	wesnoth.wml_actions.modify_turns( { value=turns } )
+	objectives[c] = { "objective", { condition="lose", show_turn_counter="yes", description=_"Turns run out",
+		{ "show_if", { { "variable", { name="random_campaign.turn_limit", not_equals="-1" } } } }   } }
+	c = c + 1
+	objectives[c] = { "gold_carryover", { bonus=false, carryover_percentage=0 } }
+end
 wesnoth.wml_actions.objectives(objectives)
