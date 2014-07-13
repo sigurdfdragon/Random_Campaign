@@ -1,5 +1,9 @@
 -- #textdomain wesnoth-Random_Campaign
 
+-- This file reads the chosen era, derives higher level eras,
+-- and loads each era into an wml array named 'era' with a length of 3.
+-- various places throughout the code use the resulting era array.
+
 local rc = {}
 local helper = wesnoth.require("lua/helper.lua")
 local wml_actions = wesnoth.wml_actions
