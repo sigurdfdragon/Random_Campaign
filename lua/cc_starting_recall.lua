@@ -19,7 +19,7 @@ if starting_recall == -1 then
 	end
 elseif starting_recall > 0 then
 	-- sort units by value and recall the specified number
-	-- sort order: loyal, level, least XP to levelup
+	-- sort order: loyal, level, least XP to level up
 	local recall_list = wesnoth.get_recall_units({ side=side })
 	local function unit_value_sort(u1, u2)				
 		if u1.__cfg.upkeep == u2.__cfg.upkeep then

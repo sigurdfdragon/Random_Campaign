@@ -29,13 +29,13 @@ function rc.upgrade_image(image)
 	-- update image. assume xxxx.png (ie, lich.png)
 	-- that xxxx is the name of a unit_type
 	-- not practical or necessary now.
-	-- a placehold if ever needed
+	-- a placeholder if ever needed
 	return image
 end
 	
 function rc.upgrade_recruit(list)
 	-- receives a string which is a comma separated list of recruits.
-	-- returns a list with each unit's next level up added if present
+	-- returns a list with each unit's next level-up added if present
 	-- here, we want to take each unit on the list and add only the immediate level-up
 	-- not future ones.
 	-- add check to make sure function is sent a string
@@ -186,7 +186,7 @@ function rc.split(str, delimiter)
 end
 
 -- derive aoh & eol eras from a default type era
--- hardcode for rc_default, era_default & era_khalifate
+-- hard code for rc_default, era_default & era_khalifate
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
 local era, e1, e2, e3
@@ -219,7 +219,7 @@ elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate_heroes" then
 	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
 	e1 = e2
 -- make an era table with 3 eras based on selected era
--- yes, the formatting of eras for selecting an aoh era is hacky,
+-- yes, the formatting of eras for selecting an aoh era is a hack,
 -- but this is minimally intrusive for the rest of the add-on.
 else
 	era = rc.format_era_data(wesnoth.game_config.era)
