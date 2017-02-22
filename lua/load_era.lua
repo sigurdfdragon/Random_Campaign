@@ -139,8 +139,10 @@ function rc.format_era_data(era)
 	-- receives an era table
 	-- returns an era table with only real multiplayer_sides
 	-- insert check that era is in fact a wml table
+	-- clear descriptions to make era easier to read in inspect
 	local processed_era = rc.deep_copy(era)	
 	for e = #processed_era, 1, -1 do
+		processed_era[e][2].description = nil
 		if processed_era[e][2].recruit == nil or processed_era[e][2].leader == nil then
 			table.remove(processed_era, e)
 		else
@@ -151,6 +153,7 @@ function rc.format_era_data(era)
 		end
 	end
 	processed_era.era_type = rc.analyze_era(processed_era)
+	processed_era.description = nil
 	return processed_era
 end
 
