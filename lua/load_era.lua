@@ -189,18 +189,14 @@ function rc.split(str, delimiter)
 end
 
 -- derive aoh & eol eras from a default type era
--- hard code for rc_default, era_default & era_khalifate
+-- hard code for era_default & era_khalifate
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
 local era, e1, e2, e3
 local eras = {}
 
 -- hard coded default type eras
-if wesnoth.game_config.mp_settings.mp_era == "rc_default" then
-	e1 = rc.format_era_data(wesnoth.get_era("rc_default"))
-	e2 = rc.format_era_data(wesnoth.get_era("rc_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
-elseif wesnoth.game_config.mp_settings.mp_era == "era_default" then
+if wesnoth.game_config.mp_settings.mp_era == "era_default" then
 	e1 = rc.format_era_data(wesnoth.get_era("era_default"))
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
@@ -209,10 +205,6 @@ elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate" then
 	e2 = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
 -- hard coded aoh type eras
-elseif wesnoth.game_config.mp_settings.mp_era == "rc_heroes" then
-	e2 = rc.format_era_data(wesnoth.get_era("rc_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
-	e1 = e2
 elseif wesnoth.game_config.mp_settings.mp_era == "era_heroes" then
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
