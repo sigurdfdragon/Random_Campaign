@@ -200,18 +200,18 @@ if wesnoth.game_config.mp_settings.mp_era == "era_default" then
 	e1 = rc.format_era_data(wesnoth.get_era("era_default"))
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
-elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate" then
-	e1 = rc.format_era_data(wesnoth.get_era("era_khalifate"))
-	e2 = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+elseif wesnoth.game_config.mp_settings.mp_era == "era_dunefolk" then
+	e1 = rc.format_era_data(wesnoth.get_era("era_dunefolk"))
+	e2 = rc.format_era_data(wesnoth.get_era("era_dunefolk_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_dunefolk_legends"))
 -- hard coded aoh type eras
 elseif wesnoth.game_config.mp_settings.mp_era == "era_heroes" then
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
 	e1 = e2
-elseif wesnoth.game_config.mp_settings.mp_era == "era_khalifate_heroes" then
-	e2 = rc.format_era_data(wesnoth.get_era("era_khalifate_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_khalifate_legends"))
+elseif wesnoth.game_config.mp_settings.mp_era == "era_dunefolk_heroes" then
+	e2 = rc.format_era_data(wesnoth.get_era("era_dunefolk_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_dunefolk_legends"))
 	e1 = e2
 -- make an era table with 3 eras based on selected era
 -- yes, the formatting of eras for selecting an aoh era is a hack,
