@@ -5,7 +5,6 @@
 -- various places throughout the code use the resulting era array.
 
 local rc = {}
-local wml_actions = wesnoth.wml_actions
 
 function rc.upgrade_era(era, era_type)
 	-- receives an era table
