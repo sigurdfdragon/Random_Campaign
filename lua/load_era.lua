@@ -5,7 +5,6 @@
 -- various places throughout the code use the resulting era array.
 
 local rc = {}
-local helper = wesnoth.require("lua/helper.lua")
 local wml_actions = wesnoth.wml_actions
 
 function rc.upgrade_era(era, era_type)
@@ -14,7 +13,7 @@ function rc.upgrade_era(era, era_type)
 	-- update leader, random_leader, recruit
 	-- add check that era is a table, and era_type is a string
 	local upgrade_era = rc.deep_copy(era)
-	for multiplayer_side in helper.child_range(upgrade_era, "multiplayer_side") do
+	for multiplayer_side in wml.child_range(upgrade_era, "multiplayer_side") do
 		multiplayer_side.recruit = rc.upgrade_recruit(multiplayer_side.recruit)
 		multiplayer_side.leader = rc.upgrade_leader(multiplayer_side.leader)
 		multiplayer_side.random_leader = rc.upgrade_leader(multiplayer_side.random_leader)
@@ -108,7 +107,7 @@ function rc.analyze_era(era)
 	-- returns what type of era it is. (small_fry, default, aoh, eol, or other)
 	-- add check to make sure a table/wml table is received
 	local leader_count, level_sum = 0, 0
-	for multiplayer_side in helper.child_range(era, "multiplayer_side") do
+	for multiplayer_side in wml.child_range(era, "multiplayer_side") do
 		-- split a list, check level of each unit (random_leader list should be most reliable.)
 		-- and average it out.
 		local lt
@@ -124,7 +123,7 @@ function rc.analyze_era(era)
 		end
 		leader_count = leader_count + #lt
 	end
-	local result = helper.round(level_sum / leader_count)
+	local result = mathx.round(level_sum / leader_count)
 	local era_type
 	if         result == 1 then era_type = "small_fry"
 		elseif result == 2 then era_type = "default"
@@ -231,4 +230,4 @@ end
 table.insert(eras, e1)
 table.insert(eras, e2)
 table.insert(eras, e3)
-helper.set_variable_array("era", eras)
+wml.array_access.set("era", eras)
