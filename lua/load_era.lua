@@ -187,7 +187,7 @@ function rc.split(str, delimiter)
 end
 
 -- derive aoh & eol eras from a default type era
--- hard code for era_default & era_khalifate
+-- hard code for era_default & era_dunefolk
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
 local era, e1, e2, e3
