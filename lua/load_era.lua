@@ -11,7 +11,7 @@ function rc.upgrade_era(era, era_type)
 	-- returns an upgraded era
 	-- update leader, random_leader, recruit
 	-- add check that era is a table, and era_type is a string
-	local upgrade_era = rc.deep_copy(era)
+	local upgrade_era = wml.clone(era)
 	for multiplayer_side in wml.child_range(upgrade_era, "multiplayer_side") do
 		multiplayer_side.recruit = rc.upgrade_recruit(multiplayer_side.recruit)
 		multiplayer_side.leader = rc.upgrade_leader(multiplayer_side.leader)
@@ -138,7 +138,7 @@ function rc.format_era_data(era)
 	-- returns an era table with only real multiplayer_sides
 	-- insert check that era is in fact a wml table
 	-- clear descriptions to make era easier to read in inspect
-	local processed_era = rc.deep_copy(era)	
+	local processed_era = wml.clone(era)
 	for e = #processed_era, 1, -1 do
 		processed_era[e][2].description = nil
 		if processed_era[e][2].recruit == nil or processed_era[e][2].leader == nil then
@@ -153,24 +153,6 @@ function rc.format_era_data(era)
 	processed_era.era_type = rc.analyze_era(processed_era)
 	processed_era.description = nil
 	return processed_era
-end
-
-function rc.deep_copy(object)
-    local lookup_table = {}
-    local function _copy(object)
-        if type(object) ~= "table" then
-            return object
-        elseif lookup_table[object] then
-            return lookup_table[object]
-        end
-        local new_table = {}
-        lookup_table[object] = new_table
-        for index, value in pairs(object) do
-            new_table[_copy(index)] = _copy(value)
-        end
-        return setmetatable(new_table, getmetatable(object))
-    end
-    return _copy(object)
 end
 
 function rc.split(str, delimiter)
