@@ -37,12 +37,12 @@ function rc.upgrade_recruit(list)
 	-- here, we want to take each unit on the list and add only the immediate level-up
 	-- not future ones.
 	-- add check to make sure function is sent a string
-	local units = rc.split(list, ",")
+	local units = stringx.split(list, ",")
 	local additions = {}
 	for u = 1, #units do
 		if wesnoth.unit_types[units[u]] and wesnoth.unit_types[units[u]].__cfg.do_not_list == nil then
 			if wesnoth.unit_types[units[u]].__cfg.advances_to ~= "null" and wesnoth.unit_types[units[u]].__cfg.advances_to then
-				local advances = rc.split(wesnoth.unit_types[units[u]].__cfg.advances_to, ",")
+				local advances = stringx.split(wesnoth.unit_types[units[u]].__cfg.advances_to, ",")
 				for a = 1, #advances do
 					table.insert(additions, advances[a])
 				end
@@ -78,12 +78,12 @@ function rc.upgrade_leader(list)
 	if list == nil then
 		return list
 	end
-	local units = rc.split(list, ",")
+	local units = stringx.split(list, ",")
 	local additions = {}
 	for u = 1, #units do
 		if wesnoth.unit_types[units[u]] and wesnoth.unit_types[units[u]].__cfg.do_not_list == nil then
 			if wesnoth.unit_types[units[u]].__cfg.advances_to ~= "null" and wesnoth.unit_types[units[u]].__cfg.advances_to then
-				local advances = rc.split(wesnoth.unit_types[units[u]].__cfg.advances_to, ",")
+				local advances = stringx.split(wesnoth.unit_types[units[u]].__cfg.advances_to, ",")
 				for a = 1, #advances do
 					table.insert(additions, advances[a])
 				end
@@ -111,9 +111,9 @@ function rc.analyze_era(era)
 		-- and average it out.
 		local lt
 		if multiplayer_side.random_leader then
-			lt = rc.split(multiplayer_side.random_leader, ",")
+			lt = stringx.split(multiplayer_side.random_leader, ",")
 		else
-			lt = rc.split(multiplayer_side.leader, ",")
+			lt = stringx.split(multiplayer_side.leader, ",")
 		end
 		for i,v in ipairs(lt) do
 			if wesnoth.unit_types[v] then
@@ -145,7 +145,7 @@ function rc.format_era_data(era)
 			table.remove(processed_era, e)
 		else
 			-- sort recruit, so it can be compared to the recruit string in [store_sides]
-			local t = rc.split(processed_era[e][2].recruit, ",")
+			local t = stringx.split(processed_era[e][2].recruit, ",")
 			table.sort(t)
 			processed_era[e][2].recruit = table.concat(t, ",")
 		end
@@ -153,19 +153,6 @@ function rc.format_era_data(era)
 	processed_era.era_type = rc.analyze_era(processed_era)
 	processed_era.description = nil
 	return processed_era
-end
-
-function rc.split(str, delimiter)
-    local result = {}
-    local from = 1
-    local delim_from, delim_to = string.find( str, delimiter, from  )
-    while delim_from do
-        table.insert( result, string.sub( str, from , delim_from-1 ) )
-        from  = delim_to + 1
-        delim_from, delim_to = string.find( str, delimiter, from  )
-    end
-    table.insert( result, string.sub( str, from  ) )
-    return result
 end
 
 -- derive aoh & eol eras from a default type era
