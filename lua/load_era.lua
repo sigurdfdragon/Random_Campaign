@@ -184,7 +184,7 @@ elseif wesnoth.scenario.era.id == "era_dunefolk_heroes" then
 -- yes, the formatting of eras for selecting an aoh era is a hack,
 -- but this is minimally intrusive for the rest of the add-on.
 else
-	era = rc.format_era_data(wesnoth.game_config.era)
+	era = rc.format_era_data(wesnoth.scenario.era)
 	if era.era_type == "default" then
 		e1 = era
 		e2 = rc.upgrade_era(e1, "heroes")
