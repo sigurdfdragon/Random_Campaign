@@ -156,7 +156,7 @@ function rc.format_era_data(era)
 end
 
 -- derive aoh & eol eras from a default type era
--- hard code for era_default & era_dunefolk
+-- hard code for era_default & era_vintage
 -- as deriving would miss the ogre & lieutenant in aoh loyalists
 -- default & aoh is probably the only eras to engage in such craziness
 local era, e1, e2, e3
@@ -167,18 +167,18 @@ if wesnoth.scenario.era.id == "era_default" then
 	e1 = rc.format_era_data(wesnoth.get_era("era_default"))
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
-elseif wesnoth.scenario.era.id == "era_dunefolk" then
-	e1 = rc.format_era_data(wesnoth.get_era("era_dunefolk"))
-	e2 = rc.format_era_data(wesnoth.get_era("era_dunefolk_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_dunefolk_legends"))
+elseif wesnoth.scenario.era.id == "era_vintage" then
+	e1 = rc.format_era_data(wesnoth.get_era("era_vintage"))
+	e2 = rc.format_era_data(wesnoth.get_era("era_vintage_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_vintage_legends"))
 -- hard coded aoh type eras
 elseif wesnoth.scenario.era.id == "era_heroes" then
 	e2 = rc.format_era_data(wesnoth.get_era("era_heroes"))
 	e3 = rc.format_era_data(wesnoth.get_era("era_legends"))
 	e1 = e2
-elseif wesnoth.scenario.era.id == "era_dunefolk_heroes" then
-	e2 = rc.format_era_data(wesnoth.get_era("era_dunefolk_heroes"))
-	e3 = rc.format_era_data(wesnoth.get_era("era_dunefolk_legends"))
+elseif wesnoth.scenario.era.id == "era_vintage_heroes" then
+	e2 = rc.format_era_data(wesnoth.get_era("era_vintage_heroes"))
+	e3 = rc.format_era_data(wesnoth.get_era("era_vintage_legends"))
 	e1 = e2
 -- make an era table with 3 eras based on selected era
 -- yes, the formatting of eras for selecting an aoh era is a hack,
